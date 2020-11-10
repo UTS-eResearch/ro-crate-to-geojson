@@ -1,0 +1,27 @@
+{
+  "name": "ro-crate-to-geojson",
+  "version": "1.0.0",
+  "description": "A simple utility to extract geographical information from RO-Crates and output an RO-Crate containing GEOJSON files for further analysis.",
+  "main": "roc2geo",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UTS-eResearch/ro-crate-to-geojson.git"
+  },
+  "keywords": [
+    "RO-Crate",
+    "GeoJSON"
+  ],
+  "author": "University of Technology Sydney",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/UTS-eResearch/ro-crate-to-geojson/issues"
+  },
+  "homepage": "https://github.com/UTS-eResearch/ro-crate-to-geojson#readme",
+  "dependencies": {
+    "geojson": "^0.5.0",
+    "ro-crate": "^1.6.1"
+  }
+}

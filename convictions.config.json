@@ -1,0 +1,74 @@
+{
+    "collectionTypes": ["Place", "Offence", "Person"],
+    "datasetProperty": {"Person": "about"},
+    "geoURL": "https://data.research.uts.edu.au/examples/ro-crate/examples/src/assets/map/",
+    "pageSize": 50,
+    "types": {
+        "Person" : {
+                "findPlaces": "person-geo.js",
+                "props" :  {
+                    "birthPlace": {},
+                    "hasFile": {},
+                    "conviction": {
+                        "types" : {
+
+                            "Sentence" : {
+                                     "props" : {
+                                          "offence" : {},
+                                         "location" : {
+                                             "types": {
+                                                 "Place" : {
+                                                     "props": {"geo": {}}
+                                                 }
+                                             }
+                                         }
+                                        }
+                                    }
+                                }
+                    } 
+                }
+                },
+        "Place":   {
+            "findPlaces": "place-geo.js",
+            "props":  {"geo" : {}},
+            "reverseProps" : {
+                "birthPlace" : {},
+                "location": {
+                    "types": 
+                    {
+                        "Sentence" : {
+                         "props" : {"object" : {
+                            "types": {"Person": {}}
+                        }
+                    }
+                }
+            }
+        }}
+        },
+        "Offence" : {
+            "findPlaces": "offence-geo.js",
+            "reverseProps" : {
+                "offence": {
+                    "types": 
+                    {
+                        "Sentence" : {
+                         "props" : {
+                             "object" : {
+                                     "types": {"Person": {}}
+                                 },
+                                 "location" : {
+                                    "types": {
+                                        "Place" : {
+                                            "props": {"geo": {}}
+                                        }
+                                    }
+                                }
+                    }
+                    }
+                }
+                
+            }
+        }     
+        }
+    }
+}

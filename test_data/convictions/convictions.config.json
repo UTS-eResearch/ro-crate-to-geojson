@@ -1,0 +1,10 @@
+{
+    "types": {
+        "Person" : {
+                "findPlaces": "person-geo.js"
+                },
+        "Offence" : {
+            "findPlaces": "offence-geo.js"
+        }     
+    }
+}
