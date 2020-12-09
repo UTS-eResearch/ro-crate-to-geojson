@@ -1,6 +1,6 @@
 {
   "name": "ro-crate-to-geojson",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple utility to extract geographical information from RO-Crates and output an RO-Crate containing GEOJSON files for further analysis.",
   "main": "roc2geo",
   "scripts": {
