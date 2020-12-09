@@ -6,8 +6,6 @@ const path = require('path');
 const {ROCrate, Preview, HtmlFile} = require("ro-crate");
 const _ = require("lodash");
 const GeoJSON = require("geojson");
-//const Preview = require("./lib/ro-crate-preview");
-//const HtmlFile = require("./lib/ro-crate-preview-file");
 
 program
   .version("0.1.0")
@@ -16,7 +14,7 @@ program
   )
   .arguments("<d>")
   .option("-c, --config [conf]", "configuration file")
-  .option("-d, --config-dir [confDir]", "Configuration directory - to be included in crate")
+  .option("-d, --config-dir [configDir]", "Configuration directory - to be included in crate")
   .option("-r, --output-path [rep]", "Directory into which to write output crate", null)
   .action((d) => {crateDir = d})
 
@@ -86,13 +84,13 @@ function indexByType(crate, config) {
 
 
 async function main() {
+    await fs.mkdirp(outPath);
     const config = JSON.parse(await fs.readFile(program.config));
     const configDir = program.configDir;
     // load the crate
     const crate = new ROCrate(JSON.parse(await fs.readFile(path.join(crateDir, "ro-crate-metadata.json"))));
     crate.index();
     const root = crate.getRootDataset();
-
     crate.addBackLinks();
     // Need to have context loaded
     const types = indexByType(crate, config);
@@ -113,6 +111,7 @@ async function main() {
     geoRoot.hasPart.push({"@id": geoJSON["@id"]});
 
     if (configDir) {
+
         if (program.config.startsWith(configDir)) {
             configFileId = path.join(configDir, path.basename(program.config));
         } else {
@@ -159,20 +158,18 @@ async function main() {
     for (let type of Object.keys(types)) {
         var count = 0;
         for (let item of types[type]) {
-            if (config.types[type] && config.types[type].findPlaces){
+            if (config.types[type] && config.types[type].findPlaces){     
                 findPlaces = require( path.join(process.cwd(), path.dirname(program.config), config.types[type].findPlaces));
                 places = findPlaces(item, crate);
             } else {
-                places = [];
+                places = null;
             }
-            if (places.length > 0) {
+            if (places) {
                 var dir = count.toString().match(/\d\d?/g).join("/");
-                const placeDir = path.join("GeoJSON", type, dir);
+                const placeDir = path.join(outPath,"GeoJSON", type, dir);
                 await fs.mkdirp(placeDir);
-                const jsonFile = GeoJSON.parse(places, {Point: ['latitude', 'longitude']})
-                const jsonString = JSON.stringify(jsonFile, null, 2)
                 const placesFile = path.join(placeDir, item["@id"].replace(/#/,"").replace(/\W/g,"_")+".geo.json");
-                await fs.writeFile(path.join(outPath, placesFile), jsonString);
+                await fs.writeFile(placesFile, places.to);
 
                 geoCrate.addItem({
                     "@id": placesFile,

@@ -1,10 +1,35 @@
 {
-    "types": {
+    "collectionTypes": ["Organization", "Offence", "Person"],
+    "datasetProperty": {"Person": "about"},
+    "geoURL": "https://data.research.uts.edu.au/examples/ro-crate/examples/src/assets/map/",
+    "pageSize": 50,
+    "types": {  
         "Person" : {
-                "findPlaces": "person-geo.js"
-                },
+            "findPlaces": "person-geo.js",
+            "resolveAll": [
+                [{"property": "about", "@reverse": true}, {"property": "holdingArchive"}],
+                [{"property": "birthPlace"}],
+                [{"property": "conviction"}, {"property": "offence"}],
+                [{"property": "conviction"}, {"property": "location"}, {"property": "location"}]
+            ]},
+        "Organization":   {
+            "findPlaces": "org-geo.js",
+            "resolveAll": [
+                [{"property": "location"}],
+                [{"property": "location", "@reverse": true}]
+
+            ]
+        },
         "Offence" : {
-            "findPlaces": "offence-geo.js"
-        }     
-    }
+            "findPlaces": "offence-geo.js",
+            "resolveAll": [
+                [{"property": "offence", "@reverse": true}, {"property": "object"}],
+                [{"property": "offence", "@reverse": true}, {"property": "location"}, {"property": "location"}]
+
+            ]
+            
+        }
+    }     
 }
+    
+
