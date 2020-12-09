@@ -41,11 +41,8 @@ const prov = [
     "instrument": {
       "@id": "https://github.com/UTS-eResearch/ro-crate-to-geojson/"
     },
-    "object": {
-      "@id": "./"
-    },
     "result": {
-      "@id": "pics/sepia_fence.jpg"
+      "@id": "./"
     }
 },
 
@@ -174,7 +171,6 @@ async function main() {
                 await fs.mkdirp(placeDir);
                 const jsonFile = GeoJSON.parse(places, {Point: ['latitude', 'longitude']})
                 const jsonString = JSON.stringify(jsonFile, null, 2)
-                console.log(places, jsonString)
                 const placesFile = path.join(placeDir, item["@id"].replace(/#/,"").replace(/\W/g,"_")+".geo.json");
                 await fs.writeFile(path.join(outPath, placesFile), jsonString);
 
