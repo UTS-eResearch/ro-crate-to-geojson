@@ -1,5 +1,5 @@
 
-function findGeo(crate, item) {
+function findGeo(item, crate) {
     const place = item;
     // Find out where a person was convicted by looking for Actions which have a location, which has a geo property
     const geo = crate.resolve(place, [{"property": "geo"}])

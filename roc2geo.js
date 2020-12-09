@@ -161,7 +161,7 @@ async function main() {
         for (let item of types[type]) {
             if (config.types[type] && config.types[type].findPlaces){
                 findPlaces = require( path.join(process.cwd(), path.dirname(program.config), config.types[type].findPlaces));
-                places = findPlaces(crate, item);
+                places = findPlaces(item, crate);
             } else {
                 places = [];
             }

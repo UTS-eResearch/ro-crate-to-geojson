@@ -6,7 +6,7 @@ A simple utility to extract geographical information from RO-Crates and output a
 ## Usage example
 
 ```
-node roc2geo.js test_data/convictions/input_crate/ -c test_data/convictions/convictions.config.json
+node roc2geo.js test_data/convictions/input_crate/ -c test_data/convictions/config/convictions.config.json
 ```
 
 Where:
